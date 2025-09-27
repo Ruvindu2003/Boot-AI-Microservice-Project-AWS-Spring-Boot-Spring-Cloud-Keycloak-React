@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import com.example.demo.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.generator.values.GeneratedValues;
 
 import java.time.LocalDateTime;
@@ -22,8 +24,12 @@ public class UserEntity {
     private String lastName;
     @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 }
