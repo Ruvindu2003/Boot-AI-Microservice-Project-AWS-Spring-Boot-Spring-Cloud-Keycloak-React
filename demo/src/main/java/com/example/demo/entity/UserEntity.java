@@ -32,4 +32,9 @@ public class UserEntity {
     private LocalDateTime updatedAt;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    // Explicit getter for id to ensure generated accessor is available to callers
+    public Long getId() {
+        return this.id;
+    }
 }

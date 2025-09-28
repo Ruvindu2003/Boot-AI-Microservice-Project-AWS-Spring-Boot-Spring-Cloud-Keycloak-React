@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -13,9 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 
+
 public class UserResponse {
 
-
+    private Long id;
     private String name;
     private String lastName;
     @NotBlank(message = "Not Requerid")

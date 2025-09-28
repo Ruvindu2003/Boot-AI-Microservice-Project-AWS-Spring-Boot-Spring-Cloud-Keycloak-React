@@ -12,10 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 
-@RequiredArgsConstructor
-public class UserController {
 
-    private  final UserService userService;
+public class UserController {
+    private  final  UserService userService;
+
+    public UserController( UserService userService1){
+
+        this.userService = userService1;
+    }
+
 
 
     @GetMapping("/{userId}")
@@ -24,7 +29,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserProfile(userId));
     }
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody @Valid RegisterequestEntity registerequest){
 
         return ResponseEntity.ok(userService.register(registerequest));
@@ -32,6 +37,12 @@ public class UserController {
 
 
     }
+
+   @GetMapping("/string")
+    public  String get(){
+        return "Fuck";
+   }
+
 
 
 }
