@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.UserResponse;
+import com.example.demo.entity.UserResponse;
 import com.example.demo.entity.RegisterequestEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.service.UserService;
