@@ -20,8 +20,6 @@ import java.util.Map;
 @Setter
 public class Activity {
     @Id
-
-
     private  Long id;
     private String userId;
     private ActivityType activityType;
