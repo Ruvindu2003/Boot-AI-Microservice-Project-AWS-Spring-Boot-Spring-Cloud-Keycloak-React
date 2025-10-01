@@ -35,7 +35,7 @@ public class ActivityImpl implements ActivityService {
 
     private ActivityResponce mapToActivityResponce(Activity saveActivity) {
         ActivityResponce activityResponce = new ActivityResponce();
-        activityResponce.setId(Long.valueOf(saveActivity.getId()));
+        activityResponce.setId(saveActivity.getId());
         activityResponce.setUserId(saveActivity.getUserId());
         activityResponce.setActivityType(saveActivity.getActivityType());
         activityResponce.setDuratuion(saveActivity.getDuratuion());
