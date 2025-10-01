@@ -2,11 +2,45 @@ package com.example.ActivityService.service.impl;
 
 import com.example.ActivityService.dto.ActivityRequest;
 import com.example.ActivityService.dto.ActivityResponce;
+import com.example.ActivityService.model.Activity;
+import com.example.ActivityService.repository.ActivityRepository;
 import com.example.ActivityService.service.ActivityService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
+@Service
 public class ActivityImpl implements ActivityService {
+    private  final ActivityRepository activityRepository;
+
     @Override
     public ActivityResponce trackActivity(ActivityRequest activityRequest) {
-        return null;
+        Activity activity = Activity.builder().
+                userId(String.valueOf(activityRequest.getUeerId())).
+                activityType(activityRequest.getActivityType()).
+                duratuion(activityRequest.getDuratuion()).
+                caloriseBurend(activityRequest.getCaloriseBurend()).
+                startTime(activityRequest.getStartTime()).
+                CreatedAt(activityRequest.getCreatedAt()).
+                additonalMetics(activityRequest.getAdditonalMetics()).build();
+
+        Activity saveActivity = activityRepository.save(activity);
+        return mapToActivityResponce(saveActivity);
+
+    }
+
+    private ActivityResponce mapToActivityResponce(Activity saveActivity) {
+        ActivityResponce activityResponce = new ActivityResponce();
+        activityResponce.setId(Long.valueOf(saveActivity.getId()));
+        activityResponce.setUserId(saveActivity.getUserId());
+        activityResponce.setActivityType(saveActivity.getActivityType());
+        activityResponce.setDuratuion(saveActivity.getDuratuion());
+        activityResponce.setCaloriseBurend(saveActivity.getCaloriseBurend());
+        activityResponce.setStartTime(saveActivity.getStartTime());
+        activityResponce.setCreatedAt(saveActivity.getCreatedAt());
+        activityResponce.setAdditonalMetics(saveActivity.getAdditonalMetics());
+        activityResponce.setUpdateAt(saveActivity.getUpdateAt());
+        return activityResponce;
+
     }
 }
