@@ -5,13 +5,17 @@ import com.example.ActivityService.dto.ActivityResponce;
 import com.example.ActivityService.model.Activity;
 import com.example.ActivityService.repository.ActivityRepository;
 import com.example.ActivityService.service.ActivityService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class ActivityImpl implements ActivityService {
-    private  final ActivityRepository activityRepository;
+    private final ActivityRepository activityRepository;
+
+    @Autowired
+    public ActivityImpl(ActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
+    }
 
     @Override
     public ActivityResponce trackActivity(ActivityRequest activityRequest) {
