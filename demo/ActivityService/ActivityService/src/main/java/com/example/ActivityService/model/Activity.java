@@ -20,7 +20,7 @@ import java.util.Map;
 @Setter
 public class Activity {
     @Id
-    private  Long id;
+    private  String id;
     private String userId;
     private ActivityType activityType;
     private Integer duratuion;
