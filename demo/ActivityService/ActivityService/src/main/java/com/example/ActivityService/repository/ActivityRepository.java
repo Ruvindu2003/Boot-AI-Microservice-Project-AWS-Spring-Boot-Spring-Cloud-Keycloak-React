@@ -1,7 +1,7 @@
 package com.example.ActivityService.repository;
 
 import com.example.ActivityService.model.Activity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ActivityRepository extends JpaRepository<Activity, String> {
+public interface ActivityRepository extends MongoRepository<Activity, String> {
 }
