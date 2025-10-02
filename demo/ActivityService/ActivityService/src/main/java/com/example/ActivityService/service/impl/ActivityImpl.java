@@ -8,6 +8,9 @@ import com.example.ActivityService.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class ActivityImpl implements ActivityService {
     private final ActivityRepository activityRepository;
@@ -30,6 +33,13 @@ public class ActivityImpl implements ActivityService {
 
         Activity saveActivity = activityRepository.save(activity);
         return mapToActivityResponce(saveActivity);
+
+    }
+
+    @Override
+    public List<ActivityResponce> getAllActivity(String userID) {
+        List<Activity> activities=  activityRepository.findAllById(Collections.singleton(userID));
+return activities.stream().map(this::mapToActivityResponce).toList();
 
     }
 
