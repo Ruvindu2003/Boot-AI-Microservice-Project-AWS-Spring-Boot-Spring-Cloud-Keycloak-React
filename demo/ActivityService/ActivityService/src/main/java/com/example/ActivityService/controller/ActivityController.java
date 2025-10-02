@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api/activities")
 @CrossOrigin
 @RestController
@@ -25,4 +27,10 @@ public class ActivityController {
         return ResponseEntity.ok((ActivityResponce) activityService.trackActivity(activityRequest));
 
     }
+
+    @GetMapping
+    public  ResponseEntity<List<ActivityResponce>> getUserActivitys(@RequestHeader("x-userId") String usetID){
+        return ResponseEntity.ok(activityService.getAllActivity(usetID));
+    }
+
 }
