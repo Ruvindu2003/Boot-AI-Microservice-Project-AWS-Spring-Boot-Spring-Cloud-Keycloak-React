@@ -15,13 +15,13 @@ import java.util.Map;
 
 public class ActivityResponce {
 
-    private  String id;
+    private String id;
     private String userId;
     private ActivityType activityType;
-    private Integer duratuion;
-    private Integer  caloriseBurend;
+    private Integer duration;
+    private Integer caloriesBurned;
     private LocalDateTime startTime;
-    private LocalDateTime CreatedAt;
-    private Map<String,Object> additonalMetics;
-    private LocalDateTime updateAt;
+    private LocalDateTime createdAt;
+    private Map<String, Object> additionalMetrics;
+    private LocalDateTime updatedAt;
 }

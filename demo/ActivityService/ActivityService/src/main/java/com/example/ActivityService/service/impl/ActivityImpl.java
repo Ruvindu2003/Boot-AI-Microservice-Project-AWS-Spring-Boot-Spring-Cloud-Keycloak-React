@@ -8,7 +8,6 @@ import com.example.ActivityService.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,13 +22,13 @@ public class ActivityImpl implements ActivityService {
     @Override
     public ActivityResponce trackActivity(ActivityRequest activityRequest) {
         Activity activity = Activity.builder().
-                userId(String.valueOf(activityRequest.getUeerId())).
+                userId(activityRequest.getUserId()).
                 activityType(activityRequest.getActivityType()).
-                duratuion(activityRequest.getDuratuion()).
-                caloriseBurend(activityRequest.getCaloriseBurend()).
+                duration(activityRequest.getDuration()).
+                caloriesBurned(activityRequest.getCaloriesBurned()).
                 startTime(activityRequest.getStartTime()).
-                CreatedAt(activityRequest.getCreatedAt()).
-                additonalMetics(activityRequest.getAdditonalMetics()).build();
+                createdAt(activityRequest.getCreatedAt()).
+                additionalMetrics(activityRequest.getAdditionalMetrics()).build();
 
         Activity saveActivity = activityRepository.save(activity);
         return mapToActivityResponce(saveActivity);
@@ -38,8 +37,8 @@ public class ActivityImpl implements ActivityService {
 
     @Override
     public List<ActivityResponce> getAllActivity(String userID) {
-        List<Activity> activities=  activityRepository.findAllById(Collections.singleton(userID));
-return activities.stream().map(this::mapToActivityResponce).toList();
+        List<Activity> activities = activityRepository.findByUserId(userID);
+        return activities.stream().map(this::mapToActivityResponce).toList();
 
     }
 
@@ -48,12 +47,12 @@ return activities.stream().map(this::mapToActivityResponce).toList();
         activityResponce.setId(saveActivity.getId());
         activityResponce.setUserId(saveActivity.getUserId());
         activityResponce.setActivityType(saveActivity.getActivityType());
-        activityResponce.setDuratuion(saveActivity.getDuratuion());
-        activityResponce.setCaloriseBurend(saveActivity.getCaloriseBurend());
+        activityResponce.setDuration(saveActivity.getDuration());
+        activityResponce.setCaloriesBurned(saveActivity.getCaloriesBurned());
         activityResponce.setStartTime(saveActivity.getStartTime());
         activityResponce.setCreatedAt(saveActivity.getCreatedAt());
-        activityResponce.setAdditonalMetics(saveActivity.getAdditonalMetics());
-        activityResponce.setUpdateAt(saveActivity.getUpdateAt());
+        activityResponce.setAdditionalMetrics(saveActivity.getAdditionalMetrics());
+        activityResponce.setUpdatedAt(saveActivity.getUpdatedAt());
         return activityResponce;
 
     }

@@ -23,14 +23,14 @@ public class ActivityController {
     }
 
     @PostMapping
-    public ResponseEntity<ActivityResponce>  trackActivity(@RequestBody ActivityRequest activityRequest){
-        return ResponseEntity.ok((ActivityResponce) activityService.trackActivity(activityRequest));
+    public ResponseEntity<ActivityResponce> trackActivity(@RequestBody ActivityRequest activityRequest){
+        return ResponseEntity.ok(activityService.trackActivity(activityRequest));
 
     }
 
     @GetMapping
-    public  ResponseEntity<List<ActivityResponce>> getUserActivitys(@RequestHeader("x-userId") String usetID){
-        return ResponseEntity.ok(activityService.getAllActivity(usetID));
+    public ResponseEntity<List<ActivityResponce>> getUserActivitys(@RequestHeader("x-userId") String userID){
+        return ResponseEntity.ok(activityService.getAllActivity(userID));
     }
 
 }

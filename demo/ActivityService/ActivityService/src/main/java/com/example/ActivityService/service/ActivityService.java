@@ -8,5 +8,5 @@ import java.util.List;
 public interface ActivityService {
     ActivityResponce trackActivity(ActivityRequest activityRequest);
 
-    List<ActivityResponce> getAllActivity(String usetID);
+    List<ActivityResponce> getAllActivity(String userID);
 }
