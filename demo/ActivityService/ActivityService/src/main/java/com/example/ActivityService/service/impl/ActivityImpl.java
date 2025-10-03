@@ -42,6 +42,13 @@ public class ActivityImpl implements ActivityService {
 
     }
 
+    @Override
+    public ActivityResponce getActivityById(String activityId) {
+        Activity activity = activityRepository.findById(activityId).
+                orElseThrow(() -> new RuntimeException("Activity Not Found"));
+        return mapToActivityResponce(activity);
+    }
+
     private ActivityResponce mapToActivityResponce(Activity saveActivity) {
         ActivityResponce activityResponce = new ActivityResponce();
         activityResponce.setId(saveActivity.getId());
