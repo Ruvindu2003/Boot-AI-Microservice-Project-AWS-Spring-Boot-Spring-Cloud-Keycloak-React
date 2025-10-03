@@ -12,12 +12,12 @@ import java.util.Map;
 @NoArgsConstructor
 public class ActivityRequest {
 
-    private String ueerId;
+    private String userId;
     private ActivityType activityType;
-    private Integer duratuion;
-    private Integer caloriseBurend;
+    private Integer duration;
+    private Integer caloriesBurned;
     private LocalDateTime startTime;
-    private LocalDateTime CreatedAt;
-    private Map<String, Object> additonalMetics;
+    private LocalDateTime createdAt;
+    private Map<String, Object> additionalMetrics;
 
 }

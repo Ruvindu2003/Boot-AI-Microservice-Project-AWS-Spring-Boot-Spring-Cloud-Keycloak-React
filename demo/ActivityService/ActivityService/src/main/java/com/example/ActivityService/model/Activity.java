@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@Document(collation = "activity")
+@Document(collection = "activity")
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,18 +20,18 @@ import java.util.Map;
 @Setter
 public class Activity {
     @Id
-    private  String id;
+    private String id;
     private String userId;
     private ActivityType activityType;
-    private Integer duratuion;
-    private Integer  caloriseBurend;
+    private Integer duration;
+    private Integer caloriesBurned;
     private LocalDateTime startTime;
     @CreatedDate
-    private LocalDateTime CreatedAt;
+    private LocalDateTime createdAt;
     @Field("metrics")
-    private Map<String,Object>additonalMetics;
+    private Map<String, Object> additionalMetrics;
     @LastModifiedDate
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
 
 }
