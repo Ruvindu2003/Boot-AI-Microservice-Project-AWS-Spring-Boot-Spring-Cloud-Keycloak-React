@@ -9,4 +9,6 @@ public interface ActivityService {
     ActivityResponce trackActivity(ActivityRequest activityRequest);
 
     List<ActivityResponce> getAllActivity(String userID);
+
+    ActivityResponce getActivityById(String activityId);
 }

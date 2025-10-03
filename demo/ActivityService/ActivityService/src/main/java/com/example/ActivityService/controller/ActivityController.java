@@ -33,4 +33,10 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.getAllActivity(userID));
     }
 
+
+    @GetMapping("{activityId}")
+    public  ResponseEntity<ActivityResponce> getActivityById(@PathVariable String activityId){
+        return ResponseEntity.ok(activityService.getActivityById(activityId));
+    }
+
 }
