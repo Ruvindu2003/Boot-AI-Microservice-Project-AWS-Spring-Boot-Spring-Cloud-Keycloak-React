@@ -29,11 +29,11 @@ public class UserController {
 
     }
 
-   @GetMapping("/string")
-    public  String get(){
-        return "Fuck";
-   }
+    @GetMapping("/{userId}/validate")
+    public ResponseEntity<Boolean> validateUser(@PathVariable Long userId){
 
+        return ResponseEntity.ok(userService.exitByUserID(userId));
+    }
 
 
 }

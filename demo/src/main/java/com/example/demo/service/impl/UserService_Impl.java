@@ -60,4 +60,9 @@ public class UserService_Impl implements UserService {
 
 
     }
+
+    @Override
+    public Boolean exitByUserID(Long userId) {
+        return  userRepository.existsById(userId);
+    }
 }

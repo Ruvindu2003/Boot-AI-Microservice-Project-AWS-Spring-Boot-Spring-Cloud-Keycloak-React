@@ -7,4 +7,6 @@ public interface UserService {
     public UserResponse getUserProfile(Long userId) ;
 
     UserResponse register(RegisterequestEntity registerequest);
+
+    Boolean exitByUserID(Long userId);
 }
