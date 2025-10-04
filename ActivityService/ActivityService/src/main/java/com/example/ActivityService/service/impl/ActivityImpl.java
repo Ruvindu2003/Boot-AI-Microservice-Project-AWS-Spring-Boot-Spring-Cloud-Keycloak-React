@@ -5,22 +5,30 @@ import com.example.ActivityService.dto.ActivityResponce;
 import com.example.ActivityService.model.Activity;
 import com.example.ActivityService.repository.ActivityRepository;
 import com.example.ActivityService.service.ActivityService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ActivityImpl implements ActivityService {
-    private final ActivityRepository activityRepository;
-
     @Autowired
-    public ActivityImpl(ActivityRepository activityRepository) {
-        this.activityRepository = activityRepository;
-    }
+    private final ActivityRepository activityRepository;
+    @Autowired
+    private final UserValidation userValidation;
+
+
 
     @Override
     public ActivityResponce trackActivity(ActivityRequest activityRequest) {
+        System.out.println("Validating user: " + activityRequest.getUserId());
+        boolean isValidUser = userValidation.validateUser(activityRequest.getUserId());
+        System.out.println("User validation result: " + isValidUser);
+        if (!isValidUser) {
+            throw new RuntimeException("Invalid User ID: " + activityRequest.getUserId());
+        }
         Activity activity = Activity.builder().
                 userId(activityRequest.getUserId()).
                 activityType(activityRequest.getActivityType()).

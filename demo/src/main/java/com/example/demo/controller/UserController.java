@@ -30,9 +30,14 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/validate")
-    public ResponseEntity<Boolean> validateUser(@PathVariable Long userId){
-
-        return ResponseEntity.ok(userService.exitByUserID(userId));
+    public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
+        // Convert String to Long for compatibility with existing service
+        try {
+            Long userIdLong = Long.valueOf(userId);
+            return ResponseEntity.ok(userService.exitByUserID(userIdLong));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.ok(false);
+        }
     }
 
 

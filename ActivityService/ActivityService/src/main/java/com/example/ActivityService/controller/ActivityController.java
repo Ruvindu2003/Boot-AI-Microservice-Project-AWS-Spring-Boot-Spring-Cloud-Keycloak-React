@@ -4,9 +4,12 @@ package com.example.ActivityService.controller;
 import com.example.ActivityService.dto.ActivityRequest;
 import com.example.ActivityService.dto.ActivityResponce;
 import com.example.ActivityService.service.ActivityService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 
@@ -22,10 +25,17 @@ public class ActivityController {
         this.activityService = activityService;
     }
 
-    @PostMapping
-    public ResponseEntity<ActivityResponce> trackActivity(@RequestBody ActivityRequest activityRequest){
-        return ResponseEntity.ok(activityService.trackActivity(activityRequest));
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Activity service is running");
+    }
 
+    @PostMapping
+    public ResponseEntity<ActivityResponce> trackActivity(@Valid @RequestBody ActivityRequest activityRequest){
+        System.out.println("Received activity request: " + activityRequest);
+        ActivityResponce response = activityService.trackActivity(activityRequest);
+        System.out.println("Activity tracked successfully: " + response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
