@@ -16,3 +16,11 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true
+
+    rabbitmq:
+        exchange:
+            fitness_exchange
+        queue:
+            activity.queue
+        routingkey:
+            activity.tracking
