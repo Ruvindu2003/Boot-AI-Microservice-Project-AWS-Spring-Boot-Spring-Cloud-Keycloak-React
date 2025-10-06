@@ -5,21 +5,27 @@ import com.example.ActivityService.dto.ActivityResponce;
 import com.example.ActivityService.model.Activity;
 import com.example.ActivityService.repository.ActivityRepository;
 import com.example.ActivityService.service.ActivityService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ActivityImpl implements ActivityService {
-    @Autowired
     private final ActivityRepository activityRepository;
-    @Autowired
     private final UserValidation userValidation;
+    private final RabbitTemplate rabbitTemplate;
 
-
+    @Value("${rabbitmq.exchange.name}")
+    private String exChange;
+    @Value("${rabbitmq.routing.key}")
+    private String routingKey;
 
     @Override
     public ActivityResponce trackActivity(ActivityRequest activityRequest) {
@@ -39,15 +45,20 @@ public class ActivityImpl implements ActivityService {
                 additionalMetrics(activityRequest.getAdditionalMetrics()).build();
 
         Activity saveActivity = activityRepository.save(activity);
-        return mapToActivityResponce(saveActivity);
 
+        try {
+            rabbitTemplate.convertAndSend(exChange, routingKey, saveActivity);
+        }catch (Exception e){
+            log.error("Fail to publish activity to RabbitMq", e);
+        }
+
+        return mapToActivityResponce(saveActivity);
     }
 
     @Override
     public List<ActivityResponce> getAllActivity(String userID) {
         List<Activity> activities = activityRepository.findByUserId(userID);
         return activities.stream().map(this::mapToActivityResponce).toList();
-
     }
 
     @Override
@@ -69,6 +80,5 @@ public class ActivityImpl implements ActivityService {
         activityResponce.setAdditionalMetrics(saveActivity.getAdditionalMetrics());
         activityResponce.setUpdatedAt(saveActivity.getUpdatedAt());
         return activityResponce;
-
     }
 }
