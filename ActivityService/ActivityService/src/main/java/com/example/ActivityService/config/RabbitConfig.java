@@ -44,4 +44,16 @@ public class RabbitConfig {
         template.setMessageConverter(jsonMessageConverter());
         return template;
     }
+
+    @Bean
+    public  DirectExchange directExchange() {
+        return new DirectExchange("fitnerse.exchange");
+    }
+
+    @Bean
+    public  Binding activityBinding(Queue actiyvityQuery, DirectExchange directExchange) {
+        return BindingBuilder.bind(actiyvityQuery).to(directExchange).with("activity.tracking");
+
+    }
+
 }
