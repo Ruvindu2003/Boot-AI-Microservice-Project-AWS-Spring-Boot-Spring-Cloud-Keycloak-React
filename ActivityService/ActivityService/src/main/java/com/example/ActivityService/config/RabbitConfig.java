@@ -46,14 +46,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    public  DirectExchange directExchange() {
+    public DirectExchange directExchange() {
         return new DirectExchange("fitnerse.exchange");
     }
 
     @Bean
-    public  Binding activityBinding(Queue actiyvityQuery, DirectExchange directExchange) {
-        return BindingBuilder.bind(actiyvityQuery).to(directExchange).with("activity.tracking");
-
+    public Binding directActivityBinding(Queue activityQueue, DirectExchange directExchange) {
+        return BindingBuilder.bind(activityQueue).to(directExchange).with("activity.tracking");
     }
-
 }

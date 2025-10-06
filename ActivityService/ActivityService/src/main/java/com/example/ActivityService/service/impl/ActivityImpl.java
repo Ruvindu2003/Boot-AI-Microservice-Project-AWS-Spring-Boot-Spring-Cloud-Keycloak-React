@@ -8,6 +8,7 @@ import com.example.ActivityService.service.ActivityService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpConnectException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,12 +30,15 @@ public class ActivityImpl implements ActivityService {
 
     @Override
     public ActivityResponce trackActivity(ActivityRequest activityRequest) {
-        System.out.println("Validating user: " + activityRequest.getUserId());
+        log.info("Received activity request: {}", activityRequest);
+        log.info("Validating user: {}", activityRequest.getUserId());
         boolean isValidUser = userValidation.validateUser(activityRequest.getUserId());
-        System.out.println("User validation result: " + isValidUser);
+        log.info("User validation response for ID {}: {}", activityRequest.getUserId(), isValidUser);
+        
         if (!isValidUser) {
             throw new RuntimeException("Invalid User ID: " + activityRequest.getUserId());
         }
+        
         Activity activity = Activity.builder().
                 userId(activityRequest.getUserId()).
                 activityType(activityRequest.getActivityType()).
@@ -45,11 +49,17 @@ public class ActivityImpl implements ActivityService {
                 additionalMetrics(activityRequest.getAdditionalMetrics()).build();
 
         Activity saveActivity = activityRepository.save(activity);
+        log.info("Activity tracked successfully: {}", mapToActivityResponce(saveActivity));
 
         try {
             rabbitTemplate.convertAndSend(exChange, routingKey, saveActivity);
-        }catch (Exception e){
-            log.error("Fail to publish activity to RabbitMq", e);
+            log.info("Activity published to RabbitMQ successfully");
+        } catch (AmqpConnectException e) {
+            log.error("Failed to connect to RabbitMQ. Activity saved to database but not published to queue.", e);
+            // Activity is still saved to database, but not published to queue
+            // In a production environment, you might want to implement a retry mechanism or dead letter queue
+        } catch (Exception e) {
+            log.error("Unexpected error while publishing activity to RabbitMQ", e);
         }
 
         return mapToActivityResponce(saveActivity);
