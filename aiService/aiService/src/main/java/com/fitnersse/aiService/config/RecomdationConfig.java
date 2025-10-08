@@ -16,10 +16,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RecomdationConfig {
 
-    @Value("${rabbitmq.exchange.name}")
+    @Value("${spring.rabbitmq.exchange.name}")
     private String exchangeName;
 
-    @Value("${rabbitmq.routing.key}")
+    @Value("${spring.rabbitmq.routing.key}")
     private String routingKey;
 
     @Bean
