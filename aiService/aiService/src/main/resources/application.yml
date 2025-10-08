@@ -4,13 +4,20 @@ server:
 spring:
   application:
     name: ai-service
-    data:
-      mongodb:
-        uri: mongodb://localhost:27017/recommendation_DB
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/recommendation_DB
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    exchange:
+      name: fitness_exchange
+    routing:
+      key: activity.tracking
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-
-
