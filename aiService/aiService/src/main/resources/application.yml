@@ -22,8 +22,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
-
-      gemini:
-        api:
-          url:${GEMINI_API_URL}
-            key:${GEMINI_API_KEY}
+deepSeek:
+  api:
+    url: ${DEEPSEEK_API_URL}
+    key: ${DEEPSEEK_API_KEY}
