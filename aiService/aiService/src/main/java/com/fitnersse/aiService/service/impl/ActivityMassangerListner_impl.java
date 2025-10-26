@@ -11,13 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ActivityMassangerListner_impl implements ActivityMassangerListner {
+    private  final  ActivityAiService activityAiService;;
     @RabbitListener(queues = "activity.queue")
+
     @Override
 
     public void processesActivity(Activity activity) {
 
         log.info("ActivityMassangerListner_impl::processesActivity {}" ,activity.getId());
-        log.info("ActivityMassangerListner_impl::processesActivity Name {}" ,activity.getAdditionalMetrics().get("name"));
+        log.info("ActivityMassangerListner_impl::processesActivity Name {}" ,activityAiService.generateActivityDescription(activity));
 
 
     }
