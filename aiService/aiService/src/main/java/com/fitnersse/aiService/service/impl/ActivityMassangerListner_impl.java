@@ -17,6 +17,7 @@ public class ActivityMassangerListner_impl implements ActivityMassangerListner {
     public void processesActivity(Activity activity) {
 
         log.info("ActivityMassangerListner_impl::processesActivity {}" ,activity.getId());
+        log.info("ActivityMassangerListner_impl::processesActivity Name {}" ,activity.getAdditionalMetrics().get("name"));
 
 
     }
