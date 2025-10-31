@@ -1,6 +1,7 @@
 package com.fitnersse.aiService.service.impl;
 
 import com.fitnersse.aiService.model.Activity;
+import com.fitnersse.aiService.model.Recomendation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class ActivityAiService {
     String prompt=createForActivityPrompt(activity);
     String aiResponse= deepSeeekApiService_impl.getAnswer(prompt);
     log.info("ActivityAiService::generateActivityDescription aiResponse {}" ,aiResponse);
+    createRecomendationFromAiRespnse(activity,aiResponse);
     return aiResponse;
     }
 
@@ -35,6 +37,16 @@ public class ActivityAiService {
                 activity.getDuration(),
                 activity.getAdditionalMetrics().get("equipment")
         );
+    }
+
+
+    public void createRecomendationFromAiRespnse(Activity activity,String aiResponse){
+        try {
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
     }
 
 
