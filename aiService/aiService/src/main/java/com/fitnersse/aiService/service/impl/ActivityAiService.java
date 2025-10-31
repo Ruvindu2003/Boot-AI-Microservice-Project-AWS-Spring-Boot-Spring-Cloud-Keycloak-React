@@ -1,5 +1,6 @@
 package com.fitnersse.aiService.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitnersse.aiService.model.Activity;
 import com.fitnersse.aiService.model.Recomendation;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,10 @@ public class ActivityAiService {
 
     public void createRecomendationFromAiRespnse(Activity activity,String aiResponse){
         try {
+
+
+            ObjectMapper objectMapper=new ObjectMapper();
+
 
         }catch (Exception e){
             e.printStackTrace();
