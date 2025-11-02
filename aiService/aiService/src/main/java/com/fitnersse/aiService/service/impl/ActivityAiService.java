@@ -1,5 +1,6 @@
 package com.fitnersse.aiService.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitnersse.aiService.model.Activity;
 import com.fitnersse.aiService.model.Recomendation;
@@ -46,6 +47,14 @@ public class ActivityAiService {
 
 
             ObjectMapper objectMapper=new ObjectMapper();
+            JsonNode jsonNode=objectMapper.readTree(aiResponse);
+            JsonNode textNode=jsonNode.path("candidates").get(0).path("message").path("text");
+           String  jsonContent=textNode.asText().replaceAll("```json\\n","");
+            log.info("ActivityAiService::createRecomendationFromAiRespnse jsonContent {}" ,jsonContent);
+            Recomendation recomendation=objectMapper.readValue(jsonContent,Recomendation.class);
+            recomendation.setActivityId(activity.getId());
+            recomendation.setUserId(activity.getUserId());
+            log.info("ActivityAiService::createRecomendationFromAiRespnse recomendation {}" ,recomendation);
 
 
         }catch (Exception e){
