@@ -1,0 +1,35 @@
+server:
+  port: 8085
+
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:change_me}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:localhost:9092}
+
+notification:
+  email:
+    from: no-reply@example.com
+    smtp-host: ${SMTP_HOST:localhost}
+    smtp-port: ${SMTP_PORT:25}
+
+rabbitmq-exchange:
+  name: fitness_exchange
+  routing:
+    activity: activity.tracking
+    notification: notification.email
+
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+

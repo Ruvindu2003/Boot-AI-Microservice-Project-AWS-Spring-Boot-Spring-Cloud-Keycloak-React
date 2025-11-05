@@ -11,16 +11,18 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ActivityMassangerListner_impl implements ActivityMassangerListner {
-    private  final  ActivityAiService activityAiService;;
+    private final ActivityAiService activityAiService;
+
     @RabbitListener(queues = "activity.queue")
-
     @Override
-
     public void processesActivity(Activity activity) {
-
-        log.info("ActivityMassangerListner_impl::processesActivity {}" ,activity.getId());
-        log.info("ActivityMassangerListner_impl::processesActivity Name {}" ,activityAiService.generateActivityDescription(activity));
-
-
+        try {
+            log.info("ActivityMassangerListner_impl::processesActivity {}", activity.getId());
+            String result = activityAiService.generateActivityDescription(activity);
+            log.info("ActivityMassangerListner_impl::processesActivity Name {}", result);
+        } catch (Exception e) {
+            log.error("ActivityMassangerListner_impl::processesActivity encountered an error for activity {}: ", 
+                     activity != null ? activity.getId() : "null", e);
+        }
     }
 }

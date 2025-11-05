@@ -1,12 +1,13 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -15,18 +16,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-
 public class UserResponse {
 
     private Long id;
     private String name;
     private String lastName;
-    @NotBlank(message = "Not Requerid")
-    @Email(message = "Invalid ForMat")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
-    @NotBlank(message = "Password is a Requeied")
-    @Size(min = 6,message = "password must  have 6 chacterse")
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must have at least 6 characters")
     private String password;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

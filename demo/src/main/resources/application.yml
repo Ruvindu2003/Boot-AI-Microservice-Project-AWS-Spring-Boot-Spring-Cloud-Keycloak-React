@@ -6,11 +6,15 @@ spring:
     name: USER-SERVICE
   datasource:
     url: jdbc:mysql://localhost:3306/fitness_user_DB?createDatabaseIfNotExist=true
-    username: root
-    password: 1234
+    username: ${DB_USER:root}
+    password: ${DB_PASS:change_me}
   jpa:
     hibernate:
       ddl-auto: update
+
+jwt:
+  secret: ${JWT_SECRET:change_me_change_me_change_me_change}
+  expiration-seconds: 3600
 
 eureka:
   instance:
