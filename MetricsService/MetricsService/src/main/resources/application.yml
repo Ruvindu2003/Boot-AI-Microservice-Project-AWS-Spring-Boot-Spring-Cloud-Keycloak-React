@@ -1,20 +1,18 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
-  application:
-    name: USER-SERVICE
   datasource:
-    url: jdbc:mysql://localhost:3306/fitness_user_DB?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/metrics_db?createDatabaseIfNotExist=true
     username: ${DB_USER:root}
     password: ${DB_PASS:change_me}
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: false
 
-jwt:
-  secret: ${JWT_SECRET:change_me_change_me_change_me_change}
-  expiration-seconds: 3600
+metrics:
+  retention-days: 365
 
 eureka:
   instance:
@@ -26,3 +24,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true
+

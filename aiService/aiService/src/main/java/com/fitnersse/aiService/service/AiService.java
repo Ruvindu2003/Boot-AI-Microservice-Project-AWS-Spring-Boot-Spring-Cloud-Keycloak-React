@@ -1,13 +1,14 @@
 package com.fitnersse.aiService.service;
 
-import com.fitnersse.aiService.model.Recomendation;
+import com.fitnersse.aiService.model.Recommendation;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 public interface AiService {
 
-   Recomendation getAllActivityId(String activityId);
+    Recommendation getRecommendationByActivityId(String activityId);
 
-    List<Recomendation> getAllUserRecomendation(String userId);
+    List<Recommendation> getAllUserRecommendations(String userId);
+
+    void postActivityFromRecommendation(Recommendation recommendation);
 }

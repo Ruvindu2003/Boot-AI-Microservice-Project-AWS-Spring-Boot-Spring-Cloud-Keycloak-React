@@ -8,8 +8,8 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
-    username: guest
-    password: guest
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:change_me}
     listener:
       simple:
         retry:
@@ -32,9 +32,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true
-
-rabbitmq:
-  exchange:
-    name: fitness_exchange
-  routing:
-    key: activity.tracking
